@@ -4,7 +4,7 @@
         <div class="page-content-wrapper animated fadeInRight">
             <div class="page-content">
                 <div class="row wrapper border-bottom page-heading">
-                     <div class="panel-heading text-center"><h2>Главная панель</h2></div>
+                     <div class="panel-heading text-center"><h2>Документооборот</h2></div>
                     <div class="wrapper-content">
                             <i class="fas fa-columns"></i> Выбрать отображаемые колонки
                         <div class=" pull-right">
@@ -30,16 +30,35 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($indocs as $indoc)
+                                <!-- All indocs -->
+                                @php
+                                    $exemplar = '';
+                                    if(count($indoc->exemplars) > 0){
+                                        foreach ($indoc->exemplars as $exemplar_item){
+                                            if(!next($indoc->exemplars)){
+                                              $exemplar = $exemplar.$exemplar_item['num'].',';
+                                            }
+                                            else {
+                                              $exemplar = $exemplar.$exemplar_item['num'];
+                                            }
+                                        }
+//                                        $exemplar = $indoc->exemplars[0]['num'];
+                                    } else {
+                                        $exemplar = 'нет экземпляров';
+                                    }
+                                @endphp
                                 <tr>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$exemplar}}</td>
+                                    <td>{{$indoc->num}}</td>
+                                    <td>{{$indoc->date}}</td>
+                                    <td>{{$indoc->outnum}}</td>
+                                    <td>{{$indoc->outdate}}</td>
+                                    <td>{{$indoc->sender}}</td>
+                                    <td>{{$indoc->text}}</td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

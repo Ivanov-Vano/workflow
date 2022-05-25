@@ -12,4 +12,4 @@
 */
 
 Route::get('/', 'HomeController@index');
-Route::get('/{indoc_id}' , 'IndocController@show');
+Route::get('/{indoc_id}' , 'IndocController@show')->name('showIndoc');

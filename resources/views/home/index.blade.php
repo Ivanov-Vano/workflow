@@ -49,7 +49,7 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td></td>
+                                    <td><a href="{{route('showIndoc',$indoc->id)}}" >просмотр</a></td>
                                     <td>{{$exemplar}}</td>
                                     <td>{{$indoc->num}}</td>
                                     <td>{{$indoc->date}}</td>

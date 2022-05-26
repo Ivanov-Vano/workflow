@@ -16,7 +16,7 @@ class ExemplarsTableSeeder extends Seeder
             DB::table('exemplars')->insert([
                 'num' => $i,
                 'note' => str_random(10),
-                'indoc_id' => random_int(1,10),
+                'indoc_id' => random_int(2,10),
             ]);
     }
 }

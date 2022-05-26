@@ -25,6 +25,8 @@ class AddMediaToIndocsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('indocs', function (Blueprint $table) {
+            $table->dropColumn('media');
+        });
     }
 }

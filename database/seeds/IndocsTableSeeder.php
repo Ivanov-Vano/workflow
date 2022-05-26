@@ -21,7 +21,8 @@ class IndocsTableSeeder extends Seeder
                 'outdate' => date("Y-m-d H:i:s"),
                 'sender' => 'отправитель',
                 'text' => 'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.',
-                'media' => 'носитель'
+                'media' => 'носитель',
+                'org_id' => rand(1,50)
             ]);
     }
 }

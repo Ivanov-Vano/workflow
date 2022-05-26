@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Indoc;
+use App\Organization;
 use Illuminate\Http\Request;
 
 class IndocController extends Controller
@@ -13,5 +14,10 @@ class IndocController extends Controller
         return view ('indoc.show',[
             'indoc_item' => $indoc_item
         ]);
+    }
+    public function showOrganization($org_id){
+        $org = Organization::where('id',$org_id)->first();
+
+        return view ('settings.organization.index');
     }
 }

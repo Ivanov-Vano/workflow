@@ -12,4 +12,5 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/{org_id}' , 'IndocController@showOrganization')->name('showOrganization');
 Route::get('/{indoc_id}' , 'IndocController@show')->name('showIndoc');

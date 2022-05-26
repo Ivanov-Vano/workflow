@@ -12,7 +12,7 @@
     <link href="css/app.css" rel="stylesheet">
 </head>
 
-
+@yield('MainMenu')
 
 @yield('content')
 

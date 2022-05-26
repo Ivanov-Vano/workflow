@@ -74,4 +74,14 @@
         </div>
     </div>
 @endsection
+@section('MainMenu')
+    <div class="main-menu-container">
+        <nav class="navbar control-toolbar navbar-mode- flex" role="navigation">
+            <div class="toolbar-item">
+                <div data-control="toolbar" data-vertical="true">
+                    <ul class="mainmenu-items mainmenu-general" data-main-menu>
+                        <li>Организации</li>
+                    </ul>
+                </div>
+@endsection
 

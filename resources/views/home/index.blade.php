@@ -55,7 +55,7 @@
                                     <td>{{$indoc->date}}</td>
                                     <td>{{$indoc->outnum}}</td>
                                     <td>{{$indoc->outdate}}</td>
-                                    <td>{{$indoc->sender}}</td>
+                                    <td>{{$indoc->organization['name']}}</td>
                                     <td>{{$indoc->text}}</td>
                                 </tr>
                                 @endforeach

@@ -5,8 +5,20 @@
             <div class="page-content">
                 <div class="row wrapper border-bottom page-heading">
                      <div class="panel-heading text-center"><h2>Документооборот</h2></div>
+                    <div class="d-flex justify-content-md-end">
+                        <select name="orderby" class="form-control text-gray-soft" id="inlineFormCustomSelect">
+                            <option class="item" value="popularity">По умолчанию</option>
+                            <option value="date">Сортировка по новизне</option>
+                            <option value="price" selected="selected">Sort by price: low to high</option>
+                            <option value="price-desc">Sort by price: high to low</option>
+                        </select>
+                    </div>
                     <div class="wrapper-content">
                             <i class="fas fa-columns"></i> Выбрать отображаемые колонки
+
+
+
+
                         <div class=" pull-right">
                             <a class="btn btn-sm blue" role="button" data-toggle="collapse" href="#filter-form" aria-expanded="false" aria-controls="filter-form">
                                 <span class="glyphicon glyphicon-filter"></span>
@@ -15,6 +27,7 @@
                             <button class="btn btn-sm blue" id="select-all">Выделить все</button>
                             <button class="btn btn-sm red" id="multiple-delete">Удалить выделенные</button>
                         </div>
+
                         <div class="row">
                             <table id="indocs-table" class="table table-bordered table-hover display">
                                 <thead>
@@ -55,6 +68,9 @@
                                     <td>{{$indoc->date}}</td>
                                     <td>{{$indoc->outnum}}</td>
                                     <td>{{$indoc->outdate}}</td>
+<!--
+                                    <td>{{$indoc->organization}}</td>
+-->
                                     <td>{{$indoc->organization['name']}}</td>
                                     <td>{{$indoc->text}}</td>
                                 </tr>
@@ -67,4 +83,14 @@
             </div>
         </div>
     </div>
+@endsection
+@section('custom.js')
+    <script>
+        $(document).ready(function (){
+            $('.btn btn-sm green').click(function ()
+            {
+                console.log('hello')
+            })
+        })
+    </script>
 @endsection

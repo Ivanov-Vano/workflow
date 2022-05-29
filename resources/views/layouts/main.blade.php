@@ -16,7 +16,7 @@
 
 @yield('content')
 
-
+@yield('custom.js')
 
 </html>
 

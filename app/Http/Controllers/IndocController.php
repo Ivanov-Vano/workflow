@@ -15,9 +15,9 @@ class IndocController extends Controller
             'indoc_item' => $indoc_item
         ]);
     }
-    public function showOrganization($org_id){
+/*    public function showOrganization($org_id){
         $org = Organization::where('id',$org_id)->first();
 
         return view ('settings.organization.index');
-    }
+    }*/
 }

@@ -7,6 +7,12 @@
                 <div class="row wrapper border-bottom page-heading">
                     <div class="col-lg-12">
                         <h2>Просмотр/редактирование документа</h2>
+                        <ol class="breadcrumb">
+                            <li><a href="{{ route('home') }}">Главная</a></li>
+                            <li class="active">
+                                <strong>Редактирование</strong>
+                            </li>
+                        </ol>
                     </div>
                 </div>
                 <div class="wrapper-content">
@@ -16,6 +22,7 @@
                                 <div class="widgets-container">
                                     <h5>Входящий документ</h5>
                                     <hr>
+                                    <form action=""
                                     <div class="form-group">
                                             <label for="name">Номер документа</label>
                                             <input class="form-control m-t-xxs" id="num" name="num"

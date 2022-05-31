@@ -11,9 +11,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    //    factory(App\Organization::class, 50)->create()->each(function ($u) {
-    //        $u->posts()->save(factory(App\Organization::class)->make());
-    //    });
+/*        factory(App\Organization::class, 50)->create()->each(function ($u) {
+            $u->posts()->save(factory(App\Organization::class)->make());
+        });
+
+        factory(App\Media::class, 50)->create()->each(function ($u) {
+            $u->posts()->save(factory(App\Media::class)->make());
+        });*/
 
         $this->call([
             IndocsTableSeeder::class,

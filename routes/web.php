@@ -12,14 +12,15 @@
 */
 
 Route::get('/', 'HomeController@index');
-//Route::get('/{org_id}' , 'IndocController@showOrganization')->name('showOrganization');
+Route::get('/edit-organization/{org_id}' , 'IndocController@showOrganization')->name('showOrganization');
 //Route::get('/{indoc_id}' , 'IndocController@show')->name('showIndoc');
+Route::get('/edit-indoc/{indoc_id}' , 'IndocController@edit')->name('editIndoc');
 
 Route::get('/create', function(){
     return view('settings.organization.create');
 });
 
-Route::post('/create', 'OrganizationController@store'
+Route::post('/create', 'OrganizationController@store');
 
 /*Route::post('/create', function (){
     \App\Organization::create([
@@ -30,4 +31,4 @@ Route::post('/create', 'OrganizationController@store'
     $organization->name = request('name');
     $organization->save();*/
 //}
-);
+

@@ -22,11 +22,12 @@
                                 <div class="widgets-container">
                                     <h5>Входящий документ</h5>
                                     <hr>
-                                    <form action="">
+                                    <form action="{{ url('/edit-indoc/'.$indoc->id) }}">
+                                        {{ csrf_field() }}
                                     <div class="form-group">
-                                            <label for="name">Номер документа</label>
-                                            <input class="form-control m-t-xxs" id="num" name="num"
-                                                   placeholder="Номер" value="{{$indoc_item->num}}" type="text">
+                                        <label for="name">Номер документа</label>
+                                        <input class="form-control m-t-xxs" id="num" name="num"
+                                               placeholder="Номер" value="{{$indoc_item->num}}" type="text">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Дата документа</label>
@@ -48,6 +49,7 @@
                                         <input class="form-control m-t-xxs" id="sender" name="sender"
                                                placeholder="Наименование" value="{{$indoc_item->sender}}" type="text">
                                     </div>
+                                    </form>
                                     <div class="form-group">
                                         <label for="name">Содержание</label>
                                         <input class="form-control m-t-xxs" id="text" name="text"
@@ -70,7 +72,7 @@
                                         @endif
                                     </div>
 
-                                    </form>
+
                                 </div>
                             </div>
 

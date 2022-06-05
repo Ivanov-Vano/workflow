@@ -13,6 +13,6 @@ class Indoc extends Model
 
     public function organization()
     {
-        return $this->belongsTo('App\Organization');
+        return $this->belongsTo('App\Organization', 'org_id');
     }
 }

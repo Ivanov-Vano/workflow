@@ -23,6 +23,7 @@
                             <a class="btn btn-sm blue" role="button" data-toggle="collapse" href="#filter-form" aria-expanded="false" aria-controls="filter-form">
                                 <span class="glyphicon glyphicon-filter"></span>
                             </a>
+                            <a href="{{url('/add-indoc')}}" class="btn btn-sm">Добавить</a>
                             <button class="btn btn-sm green" id="deselect-all">Убрать выделение</button>
                             <button class="btn btn-sm blue" id="select-all">Выделить все</button>
                             <button class="btn btn-sm red" id="multiple-delete">Удалить выделенные</button>
@@ -33,13 +34,13 @@
                                 <thead>
                                 <tr>
                                     <th class="font-bold text-center"></th>
-                                    <th></th>
                                     <th>Вх. №<br> (при наличии)</th>
                                     <th>Дата Вх. № </th>
                                     <th>Исх. №</th>
                                     <th>Дата Исх. №</th>
                                     <th>Отправитель</th>
                                     <th>Содержание документа</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -62,17 +63,14 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td><a href="{{route('showIndoc',$indoc->id)}}" >просмотр</a></td>
                                     <td>{{$exemplar}}</td>
                                     <td>{{$indoc->num}}</td>
                                     <td>{{$indoc->date}}</td>
                                     <td>{{$indoc->outnum}}</td>
                                     <td>{{$indoc->outdate}}</td>
-<!--
-                                    <td>{{$indoc->organization}}</td>
--->
                                     <td>{{$indoc->organization['name']}}</td>
                                     <td>{{$indoc->text}}</td>
+                                    <td><a href="{{route('editIndoc',$indoc->id)}}" class="btn btn-primary">изменить</a></td>
                                 </tr>
                                 @endforeach
                                 </tbody>

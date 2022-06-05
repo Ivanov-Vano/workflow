@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/edit-organization/{org_id}' , 'IndocController@showOrganization')->name('showOrganization');
-//Route::get('/{indoc_id}' , 'IndocController@show')->name('showIndoc');
+Route::get('/show-indoc/{indoc_id}' , 'IndocController@show')->name('showIndoc');
 Route::get('/edit-indoc/{indoc_id}' , 'IndocController@edit')->name('editIndoc');
+Route::post('/edit-indoc/{indoc_id}' , 'IndocController@update')->name('updateIndoc');
+Route::get('/add-indoc' , 'IndocController@create')->name('createIndoc');
 
 Route::get('/create', function(){
     return view('settings.organization.create');

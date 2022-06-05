@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        $indocs = Indoc::orderBy('created_at')->take(8)->get();
+        $indocs = Indoc::orderBy('created_at')->get();
 
         return view ('home.index',[
             'indocs' => $indocs

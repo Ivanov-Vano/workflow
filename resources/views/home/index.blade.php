@@ -14,11 +14,6 @@
                         </select>
                     </div>
                     <div class="wrapper-content">
-                            <i class="fas fa-columns"></i> Выбрать отображаемые колонки
-
-
-
-
                         <div class=" pull-right">
                             <a class="btn btn-sm blue" role="button" data-toggle="collapse" href="#filter-form" aria-expanded="false" aria-controls="filter-form">
                                 <span class="glyphicon glyphicon-filter"></span>
@@ -91,4 +86,14 @@
             })
         })
     </script>
+@endsection
+@section('MainMenu')
+    <div class="main-menu-container">
+        <nav class="navbar control-toolbar navbar-mode- flex" role="navigation">
+            <div class="toolbar-item">
+                <div data-control="toolbar" data-vertical="true">
+                    <ul class="mainmenu-items mainmenu-general" data-main-menu>
+                        <li><a href="{{url('/organizations')}}">Организации</a></li>
+                    </ul>
+                </div>
 @endsection

@@ -17,6 +17,7 @@ Route::get('/show-indoc/{indoc_id}' , 'IndocController@show')->name('showIndoc')
 Route::get('/edit-indoc/{indoc_id}' , 'IndocController@edit')->name('editIndoc');
 Route::post('/edit-indoc/{indoc_id}' , 'IndocController@update')->name('updateIndoc');
 Route::get('/add-indoc' , 'IndocController@create')->name('createIndoc');
+Route::post('/add-indoc' , 'IndocController@store')->name('storeIndoc');
 
 Route::get('/create', function(){
     return view('settings.organization.create');

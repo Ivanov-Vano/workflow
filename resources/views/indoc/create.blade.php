@@ -22,34 +22,35 @@
                                 <div class="widgets-container">
                                     <h5>Входящий документ</h5>
                                     <hr>
-                                    <form>
+                                    <form method="post" action="{{ url('/add-indoc') }}">
+                                        {{ csrf_field() }}
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="inputNum">Номер</label>
-                                                <input type="text" class="form-control" id="inputNum">
+                                                <input type="text" class="form-control" name="num" id="num">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="inputDate">Дата</label>
-                                                <input type="date" class="form-control" id="inputDate">
+                                                <input type="date" class="form-control" name="date" id="date">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="inputOutnum">Номер исходящего</label>
-                                                <input type="text" class="form-control" id="inputOutnum">
+                                                <input type="text" class="form-control" name="outnum" id="outnum">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="inputOutdate">Дата исходящего</label>
-                                                <input type="date" class="form-control" id="inputOutdate">
+                                                <input type="date" class="form-control" name="outdate" id="outdate">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputText">Содержание</label>
-                                            <input type="text" class="form-control" id="inputText" placeholder="О чем документ">
+                                            <input type="text" class="form-control" name="text" id="text" placeholder="О чем документ">
                                         </div>
                                             <div class="form-group">
-                                                <label for="inputState">Отправитель</label>
-                                                <select id="inputState" class="form-control">
+                                                <label for="inputOrgsnization">Отправитель</label>
+                                                <select name="org_id" id="org_id" class="form-control">
                                                     <option selected>Выберите организацию...</option>
                                                     @foreach ($organizations as $organization)
                                                         <option value="{{$organization->id}}">{{$organization->name}}</option>

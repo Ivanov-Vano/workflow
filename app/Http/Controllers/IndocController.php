@@ -31,7 +31,6 @@ class IndocController extends Controller
         $indoc->outdate = $input['outdate'];
         $indoc->text = $input['text'];
         $indoc->org_id = $input['org_id'];
-
         $indoc->save();
 
         return redirect('/');
@@ -40,5 +39,11 @@ class IndocController extends Controller
     {
         $organizations = Organization::orderBy('name')->get();
         return view('indoc.create', compact('organizations'));
+    }
+    public function store(Request $request)
+    {
+        $input =$request->all();
+        Indoc::create($input);
+        return redirect('/');
     }
 }

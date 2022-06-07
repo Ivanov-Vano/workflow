@@ -17,10 +17,16 @@ class CreateIndocsTable extends Migration
             $table->increments('id');
             $table->integer('num');
             $table->timestamp('date');
-            $table->string('outnum');
-            $table->timestamp('outdate');
-            $table->string('sender');
-            $table->string('text');
+            $table->string('num_out');
+            $table->timestamp('date_out');
+            $table->string('name');
+            $table->text('summary');
+            $table->integer('count_page');
+            $table->integer('resolution_chief_id')->nullable(false);
+            $table->text('note');
+            $table->string('confidential');
+            $table->string('image');
+            $table->text('summary');
             $table->timestamps();
         });
     }

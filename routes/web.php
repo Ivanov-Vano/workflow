@@ -18,7 +18,7 @@ Route::get('/show-indoc/{indoc_id}' , 'IndocController@show')->name('showIndoc')
 Route::get('/edit-indoc/{indoc_id}' , 'IndocController@edit')->name('editIndoc');
 Route::post('/edit-indoc/{indoc_id}' , 'IndocController@update')->name('updateIndoc');
 Route::get('/add-indoc' , 'IndocController@create')->name('createIndoc');
-Route::post('/add-indoc' , 'IndocController@store')->name('storeIndoc');
+Route::post('/' , 'IndocController@store')->name('storeIndoc');
 
 
       /*организации*/
@@ -28,7 +28,7 @@ Route::post('/organizations', 'OrganizationController@store');
 Route::get('/organizations/{org_id}', 'OrganizationController@show');
 Route::get('/organizations/{org_id}/edit', 'OrganizationController@edit')->name('editOrganization');
 Route::post('/organizations/{org_id}', 'OrganizationController@update');
-Route::delete('/organizations/{org_id}', 'OrganizationController@destroy');
+Route::delete('/organizations/{org_id}', 'OrganizationController@destroy')->name('destroyOrganization');
 
 /*Route::post('/create', function (){
     \App\Organization::create([

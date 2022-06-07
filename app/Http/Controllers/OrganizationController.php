@@ -45,6 +45,12 @@ class OrganizationController extends Controller
         return redirect('/organizations');
     }
 
+    public function destroy($organization)
+    {
+
+        Organization::find($organization)->delete();
+        return redirect()->back();
+    }
 /*    public function store()
     {
         Organization::create([

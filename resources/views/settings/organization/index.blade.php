@@ -21,7 +21,18 @@
                                 @foreach($organizations as $organization)
                                     <tr>
                                         <td>{{$organization->name}}</td>
-                                        <td><a href="{{route('editOrganization',$organization->id)}}" class="btn btn-primary">изменить</a></td>
+                                        <td style="display: flex">
+                                            <div>
+                                            <a href="{{route('editOrganization',$organization->id)}}" class="btn btn-primary">изменить</a>
+                                            </div>
+                                            <div>
+                                                <form action="{{url('/organizations/'.$organization->id)}}" method="post">
+                                                    {{ method_field('DELETE') }}
+                                                    {{csrf_field()}}
+                                                    <button class="btn btn-danger" type="submit">удалить</button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

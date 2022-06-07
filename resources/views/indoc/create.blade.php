@@ -22,7 +22,7 @@
                                 <div class="widgets-container">
                                     <h5>Входящий документ</h5>
                                     <hr>
-                                    <form method="post" action="{{ url('/add-indoc') }}">
+                                    <form method="post" action="{{ url('/') }}">
                                         {{ csrf_field() }}
                                         <div class="form-row">
                                             <div class="form-group col-md-6">

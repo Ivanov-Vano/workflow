@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Indoc extends Model
 {
-    protected $table = 'indocs';
-    protected $filllable = [
+    protected $fillable = [
         'num',
         'date',
         'outnum',

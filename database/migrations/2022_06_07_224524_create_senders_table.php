@@ -15,7 +15,7 @@ class CreateSendersTable extends Migration
     {
         Schema::create('senders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
+            $table->string('name')->nullable();//отправитель личность
             $table->string('phone', 100)->nullable();
             $table->integer('organization_id');
             $table->timestamps();

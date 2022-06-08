@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExemplarsTable extends Migration
+class CreateMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateExemplarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exemplars', function (Blueprint $table) {
+        // таблица носителей информации
+        Schema::create('media', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('num');
-            $table->string('note');
-            $table->integer('indoc_id')->unsigned();
-            $table->foreign('indoc_id')
-                    ->references('id')->on('indocs')
-                    ->onDelete('cascade');
+            $table->string('name')->nullable();
+            $table->string('short_name', 100)->unique();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateExemplarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exemplars');
+        Schema::dropIfExists('media');
     }
 }

@@ -21,8 +21,10 @@ class CreateNodesTable extends Migration
             $table->integer('sort')->default(0);
             $table->boolean('actual')->default(TRUE);
             $table->integer('parent_id')->nullable()->unsigned();
-            $table->foreign('parent_id')->references('node_id')->on('nodes')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+        });
+        Schema::table('nodes', function (Blueprint $table){
+            $table->foreign('parent_id')->references('id')->on('nodes');
         });
     }
 
@@ -33,6 +35,9 @@ class CreateNodesTable extends Migration
      */
     public function down()
     {
+        Schema::table('nodes', function($table){
+            $table->dropForeign(['parent_id']);
+        });
         Schema::dropIfExists('nodes');
     }
 }

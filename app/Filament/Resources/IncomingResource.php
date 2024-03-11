@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\IncomingResource\Pages;
 //use App\Filament\Resources\IncomingResource\RelationManagers;
+use App\Filament\Resources\Traits\HasTags;
 use App\Models\Accesses\User;
 use App\Models\Incoming;
 use DateTime;
@@ -24,6 +25,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class IncomingResource extends Resource
 {
+    use HasTags;
+
     protected static ?string $model = Incoming::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
@@ -253,10 +256,15 @@ class IncomingResource extends Resource
                     ->sortable()
                     ->toggleable()
                     ->label('Дата'),
-                TextColumn::make('confidential')
+                TextColumn::make('name')
                     ->searchable()
                     ->toggleable()
-                    ->label('Гриф'),
+                    ->words(2)
+                    ->tooltip(function (TextColumn $column): ?string {
+                        $state = $column->getState();
+                        return $state;
+                    })
+                    ->label('Наименование'),
                 TextColumn::make('sender_number')
                     ->searchable()
                     ->toggleable()
@@ -265,6 +273,14 @@ class IncomingResource extends Resource
                     ->sortable()
                     ->toggleable()
                     ->label('Дата исходящего'),
+                TextColumn::make('sender_name')
+                    ->searchable()
+                    ->toggleable()
+                    ->label('Имя отправителя'),
+                TextColumn::make('sender_phone')
+                    ->sortable()
+                    ->toggleable()
+                    ->label('Контакты отправителя'),
                 TextColumn::make('organization.short_name')
                     ->searchable()
                     ->sortable()
@@ -275,16 +291,19 @@ class IncomingResource extends Resource
                     ->sortable()
                     ->toggleable()
                     ->label('Тип получения'),
-                TextColumn::make('name')
+                TextColumn::make('confidential')
                     ->searchable()
                     ->toggleable()
-                    ->words(2)
-                    ->tooltip(function (TextColumn $column): ?string {
-                        $state = $column->getState();
-                        return $state;
-                    })
-                    ->label('Наименование'),
-                TextColumn::make('whoseResolution.person.full_name')
+                    ->label('Гриф'),
+                TextColumn::make('exemplar_count')
+                    ->toggleable()
+                    ->numeric()
+                    ->label('Количество экземпляров'),
+                TextColumn::make('registry.number')
+                    ->sortable()
+                    ->toggleable()
+                    ->label('Номер дела'),
+                TextColumn::make('whoseResolution.full_name')
                     ->searchable()
                     ->sortable()
                     ->toggleable()
@@ -297,14 +316,7 @@ class IncomingResource extends Resource
                         return $state;
                     })
                     ->label('Резолюция'),
-                TextColumn::make('registry.number')
-                    ->sortable()
-                    ->toggleable()
-                    ->label('Номер дела'),
-                TextColumn::make('page_start')
-                    ->toggleable()
-                    ->label('Страница в деле'),
-                TextColumn::make('OverdueDays')
+/*                TextColumn::make('OverdueDays')
                     ->getStateUsing(function(Model $record) {
                         if ($record->implementation==Null) {
                             return '';
@@ -318,11 +330,32 @@ class IncomingResource extends Resource
                         return $days;
                     })
                     ->toggleable()
-                    ->label('Задержка (дней)'),
+                    ->label('Задержка (дней)'),*/
+                TextColumn::make('deadline')
+                    ->toggleable()
+                    ->sortable()
+                    ->label('Срок исполнения'),
+                TextColumn::make('completed_at')
+                    ->toggleable()
+                    ->sortable()
+                    ->label('Дата выполнения'),
+                TextColumn::make('officer.full_name')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable()
+                    ->label('ФИО исполнителя'),
+                TextColumn::make('importance')
+                    ->sortable()
+                    ->toggleable()
+                    ->label('Срочность'),
+                TextColumn::make('is_internal')
+                    ->badge()
+                    ->sortable()
+                    ->toggleable()
+                    ->label('Признак внутреннего документа'),
                 TextColumn::make('mainNode.name_short')
                     ->toggleable()
                     ->searchable()
-//                    ->getStateUsing(fn (Instruction $record): string => ($record->nodes()->where('is_main', '=', true)))
                     ->label('Старший'),
                 TextColumn::make('image')
                     ->label('Документ')
@@ -332,6 +365,31 @@ class IncomingResource extends Resource
                     ->colors([
                         'success' => 'Вложение',
                     ]),
+                TextColumn::make('signCompletedWho.officer.full_name')
+                    ->toggleable()
+                    ->searchable()
+                    ->label('Кто поставил отметку о выполнении'),
+                TextColumn::make('sign_completed_at')
+                    ->toggleable()
+                    ->sortable()
+                    ->label('Время отметки о выполнении'),
+                self::tagsColumn(),
+                TextColumn::make('createdWho.officer.full_name')
+                    ->toggleable()
+                    ->searchable()
+                    ->label('Кто создал запись'),
+                TextColumn::make('created_at')
+                    ->toggleable()
+                    ->sortable()
+                    ->label('Время создания записи'),
+                TextColumn::make('updatedWho.officer.full_name')
+                    ->toggleable()
+                    ->searchable()
+                    ->label('Кто обновил запись'),
+                TextColumn::make('updated_at')
+                    ->toggleable()
+                    ->sortable()
+                    ->label('Время обновления записи'),
             ])
             ->filters([
                 //

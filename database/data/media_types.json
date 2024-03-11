@@ -1,0 +1,17 @@
+[
+  {
+    "short_name": "CD-RW"
+  },
+  {
+    "short_name": "HDD"
+  },
+  {
+    "short_name": "DVD-R"
+  },
+  {
+    "short_name": "SSD"
+  },
+  {
+    "short_name": "floppy"
+  }
+]

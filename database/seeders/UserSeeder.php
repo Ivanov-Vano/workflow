@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'password' => '$2y$10$R5vBPe6dfxDQevMtpH6pmetk3B0oyACoFU7RvLkz8EhUE4u99.r.O', // password 12345678
             'remember_token' => Str::random(10),
             'username' => 'admin',
+            'name' => 'admin',
         ]);
         $role = Role::create([
             'name' => 'Суперпользователь',

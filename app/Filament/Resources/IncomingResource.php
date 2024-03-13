@@ -7,7 +7,10 @@ use App\Filament\Resources\IncomingResource\Pages;
 use App\Filament\Resources\Traits\HasTags;
 use App\Models\Accesses\User;
 use App\Models\Incoming;
+use Carbon\Carbon;
 use DateTime;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
@@ -19,6 +22,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\Indicator;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -392,8 +398,121 @@ class IncomingResource extends Resource
                     ->label('Время обновления записи'),
             ])
             ->filters([
-                //
-            ])
+                Filter::make('confidental')
+                    ->label('Гриф')
+                    ->form([
+                        Checkbox::make('ns')
+                            ->label('несекетно'),
+                        Checkbox::make('dsp')
+                            ->label('ДПС'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['ns'],
+                                fn (Builder $query): Builder => $query->where('confidential', '=', 'ns'),
+                            )
+                            ->when(
+                                $data['dsp'],
+                                fn (Builder $query): Builder => $query->orWhere('confidential', '=', 'dsp'),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+
+                        if ($data['ns'] ?? null) {
+                            $indicators[] = Indicator::make('нс')
+                                ->removeField('ns');
+                        }
+
+                        if ($data['dsp'] ?? null) {
+                            $indicators[] = Indicator::make('ДПС')
+                                ->removeField('dsp');
+                        }
+                        return $indicators;
+                    }),
+                SelectFilter::make('organization_id')
+                    ->label('Отправитель')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('organization', 'short_name'),
+                SelectFilter::make('nodes')
+                    ->label('Ответственный')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('nodes', 'name_short'),
+                SelectFilter::make('tags')
+                    ->label('Ключевое слово')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('tags', 'name'),
+                SelectFilter::make('registry_id')
+                    ->label('Номер дела')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('registry', 'number'),
+                SelectFilter::make('officer_id')
+                    ->label('Исполнитель')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('officer', 'full_name'),
+                SelectFilter::make('option_id')
+                    ->label('Тип получения')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('option', 'short_name'),
+                SelectFilter::make('whose_resolution')
+                    ->label('Чья резолюция')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('whoseResolution', 'full_name'),
+                Filter::make('is_internal')
+                    ->toggle()
+                    ->label('Внутренний')
+                    ->query(fn (Builder $query): Builder => $query->where('is_internal', true)),
+                Filter::make('is_complete')
+                    ->toggle()
+                    ->label('Исполненный')
+                    ->query(fn (Builder $query): Builder => $query->where('is_complete', true)),
+                Filter::make('image_sign')
+                    ->toggle()
+                    ->label('С вложением')
+                    ->query(fn (Builder $query): Builder => $query->whereNotNull('image')),
+                Filter::make('date')
+                    ->label('Дата входящего')
+                    ->form([
+                        DatePicker::make('from')->label('с'),
+                        DatePicker::make('until')
+                            ->label('по')/*
+                            ->default(now())*/,
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('date', '>=', $date),
+                            )
+                            ->when(
+                                $data['until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('date', '<=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+
+                        if ($data['from'] ?? null) {
+                            $indicators[] = Indicator::make('с ' . Carbon::parse($data['from'])->toFormattedDateString())
+                                ->removeField('from');
+                        }
+
+                        if ($data['until'] ?? null) {
+                            $indicators[] = Indicator::make('по ' . Carbon::parse($data['until'])->toFormattedDateString())
+                                ->removeField('until');
+                        }
+
+                        return $indicators;
+                    }),
+])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -403,7 +522,6 @@ class IncomingResource extends Resource
                 ]),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [

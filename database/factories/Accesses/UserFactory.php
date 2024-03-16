@@ -2,11 +2,12 @@
 
 namespace Database\Factories\Accesses;
 
+use App\Models\Accesses\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Accesses\User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
@@ -15,7 +16,7 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
 /*            'name' => fake()->name(),
@@ -24,17 +25,5 @@ class UserFactory extends Factory
             'password' => '$2y$10$R5vBPe6dfxDQevMtpH6pmetk3B0oyACoFU7RvLkz8EhUE4u99.r.O', // password 12345678
             'remember_token' => Str::random(10),
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return static
-     */
-    public function unverified()
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }

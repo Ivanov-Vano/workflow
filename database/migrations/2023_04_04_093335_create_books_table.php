@@ -44,6 +44,12 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('workbooks', function($table){
+            $table->dropForeign(['book_id']);
+        });
+        Schema::table('inventories', function($table){
+            $table->dropForeign(['book_id']);
+        });
         Schema::dropIfExists('books');
     }
 };

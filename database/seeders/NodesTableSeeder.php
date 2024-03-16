@@ -12,7 +12,7 @@ class NodesTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Node::factory(20)->create();
     }

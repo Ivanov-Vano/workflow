@@ -12,7 +12,7 @@ class ResolutionsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Resolution::factory(20)->create();
     }

@@ -2,10 +2,11 @@
 
 namespace Database\Factories\Classifiers;
 
+use App\Models\Classifiers\Registry;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends Factory<Registry>
  */
 class RegistryFactory extends Factory
 {
@@ -14,13 +15,13 @@ class RegistryFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'number' => $this->faker->numberBetween(1, 100),
-            'name' => $this->faker->word,
-            'description' => $this->faker->text(),
-            'year' => $this->faker->year,
+            'name' => fake()->word,
+            'description' => fake()->text(),
+            'year' => fake()->year,
             'order' => $this->faker->numberBetween(1, 100),
         ];
     }

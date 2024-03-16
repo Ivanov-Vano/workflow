@@ -12,7 +12,7 @@ class MediaTypesTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $path = "database/data/media_types.json";
         $mediaTypes = json_decode(file_get_contents($path), true);

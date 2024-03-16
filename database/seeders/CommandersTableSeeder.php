@@ -12,7 +12,7 @@ class CommandersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Commander::factory(20)->create();
     }

@@ -2,12 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Document;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Classifiers\Officer;
-use App\Models\Classifiers\Registry;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Document>
+ * @extends Factory<Document>
  */
 class DocumentFactory extends Factory
 {
@@ -16,15 +15,15 @@ class DocumentFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
-        $confidental = ['ns', 'dsp'];
+        $confidential = ['ns', 'dsp'];
 
         return [
-            'name' => $this->faker->word,
-            'description' => $this->faker->text(),
-            'page_count' => $this->faker->numberBetween(1, 10),
-            'confidential' => $confidental[$this->faker->numberBetween(0, 1)],// enum
+            'name' => fake()->word,
+            'description' => fake()->text(),
+            'page_count' => fake()->numberBetween(1, 10),
+            'confidential' => $confidential[$this->faker->numberBetween(0, 1)],// enum
             'exemplar_count' => $this->faker->numberBetween(1, 3),
             'date' => $this->faker->dateTimeThisYear(),
             'destroyed_at' => $this->faker->dateTimeThisYear(),

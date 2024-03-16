@@ -13,7 +13,7 @@ class OptionsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $path = "database/data/options.json";
         $options = json_decode(file_get_contents($path), true);

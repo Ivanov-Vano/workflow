@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Classifiers\Department;
-use App\Models\Classifiers\Officer;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DepartmentSeeder extends Seeder
@@ -14,7 +12,7 @@ class DepartmentSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
          Department::factory(10)->create();
     }

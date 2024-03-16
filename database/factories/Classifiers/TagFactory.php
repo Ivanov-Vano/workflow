@@ -2,10 +2,11 @@
 
 namespace Database\Factories\Classifiers;
 
+use App\Models\Classifiers\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends Factory<Tag>
  */
 class TagFactory extends Factory
 {
@@ -14,10 +15,10 @@ class TagFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word,
+            'name' => fake()->unique()->slug(2),
         ];
     }
 }

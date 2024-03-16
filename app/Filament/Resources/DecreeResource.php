@@ -4,14 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DecreeResource\Pages;
 //use App\Filament\Resources\DecreeResource\RelationManagers;
+use App\Filament\Resources\Traits\HasTags;
 use App\Models\Accesses\User;
 use App\Models\Decree;
-use Filament\Forms;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -19,12 +18,11 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DecreeResource extends Resource
 {
+    use HasTags;
 
     protected static ?string $model = Decree::class;
 

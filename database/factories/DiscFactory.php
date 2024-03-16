@@ -4,10 +4,11 @@ namespace Database\Factories;
 
 use App\Models\Classifiers\MediaType;
 use App\Models\Classifiers\Registry;
+use App\Models\Disc;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Disc>
+ * @extends Factory<Disc>
  */
 class DiscFactory extends Factory
 {
@@ -16,14 +17,14 @@ class DiscFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
-        $confidental = ['СН', 'ДПС'];
+        $confidental = ['ns', 'dsp'];
 
         return [
-            'name' => $this->faker->word(),
-            'description' => $this->faker->text(),
-            'confidential' => $confidental[$this->faker->numberBetween(0, 1)],// enum
+            'name' => fake()->word(),
+            'description' => fake()->text(),
+            'confidential' => $confidental[fake()->numberBetween(0, 1)],// enum
             'type_id' => MediaType::all()->random()->id,
             'registry_id' => Registry::all()->random()->id,
         ];

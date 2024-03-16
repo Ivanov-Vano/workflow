@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Outgoing;
 use Illuminate\Database\Seeder;
 
 class OutgoingSeeder extends Seeder
@@ -12,8 +12,8 @@ class OutgoingSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        //
+        Outgoing::factory(50)->create();
     }
 }

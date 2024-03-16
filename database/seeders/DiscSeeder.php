@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Disc;
 use Illuminate\Database\Seeder;
 
 class DiscSeeder extends Seeder
@@ -12,8 +12,8 @@ class DiscSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        //
+        Disc::factory(50)->create();
     }
 }

@@ -12,7 +12,7 @@ class RegistriesTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Registry::factory(20)->create();
     }

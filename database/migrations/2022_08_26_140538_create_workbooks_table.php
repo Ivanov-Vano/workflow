@@ -33,9 +33,6 @@ class CreateWorkbooksTable extends Migration
      */
     public function down()
     {
-        Schema::table('workbooks', function($table){
-            $table->dropForeign(['document_id']);
-        });
         Schema::dropIfExists('workbooks');
     }
 }

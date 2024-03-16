@@ -11,13 +11,13 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('discs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->enum('confidential', ['НС', 'ДСП'])->default('НС');
+            $table->enum('confidential', ['ns', 'dsp'])->default('ns');
             $table->date('destroyed_at')->nullable();
             $table->integer('type_id')->nullable();
             $table->foreign('type_id')->references('id')->on('media_types')

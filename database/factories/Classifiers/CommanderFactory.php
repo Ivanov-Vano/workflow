@@ -2,10 +2,11 @@
 
 namespace Database\Factories\Classifiers;
 
+use App\Models\Classifiers\Commander;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends Factory<Commander>
  */
 class CommanderFactory extends Factory
 {
@@ -14,10 +15,10 @@ class CommanderFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'short_name' => $this->faker->unique()->word,
+            'short_name' => fake()->unique()->word,
         ];
     }
 }

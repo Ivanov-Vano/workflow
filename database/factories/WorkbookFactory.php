@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Workbook;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Book;
-use App\Models\Document;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Workbook>
+ * @extends Factory<Workbook>
  */
 class WorkbookFactory extends Factory
 {
@@ -16,16 +16,16 @@ class WorkbookFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
-        $confidental = ['НС', 'ДСП'];
+        $confidential = ['НС', 'ДСП'];
 
         return [
             'number' => $this->faker->word,
             'registered_at' => $this->faker->dateTimeBetween('6 days', '30 days'),
-            'name' => $this->faker->word,
+            'name' => fake()->word,
             'page_count' => $this->faker->numberBetween(1, 10),
-            'confidential' => $confidental[$this->faker->numberBetween(0, 1)],// enum
+            'confidential' => $confidential[$this->faker->numberBetween(0, 1)],// enum
             'destroyed_at' => $this->faker->dateTimeBetween('6 days', '30 days'),
             'book_id' => Book::all()->random()->id,
         ];

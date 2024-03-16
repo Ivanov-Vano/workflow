@@ -7,6 +7,7 @@ use App\Models\Accesses\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Spatie\Permission\PermissionRegistrar;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -18,10 +19,10 @@ class RolesAndPermissionsSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // reset cached roles and permissions (сбросить кешированные роли и разрешения)
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         //Misc (пустышка)
         $miscPermission = Permission::create(['name' => 'N/A']);

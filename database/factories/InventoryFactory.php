@@ -3,12 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Book;
+use App\Models\Inventory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Document;
-use App\Models\Media;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Inventory>
+ * @extends Factory<Inventory>
  */
 class InventoryFactory extends Factory
 {
@@ -17,7 +17,7 @@ class InventoryFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'number' => $this->faker->numberBetween(1,1000),

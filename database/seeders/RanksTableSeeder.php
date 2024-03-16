@@ -13,7 +13,7 @@ class RanksTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $path = "database/data/ranks.json";
         $ranks = json_decode(file_get_contents($path), true);

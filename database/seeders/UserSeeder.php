@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Accesses\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
@@ -15,7 +14,7 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $user = User::factory()->create([
             'email' => 'chief@mail.ru',

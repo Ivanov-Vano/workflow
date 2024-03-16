@@ -15,6 +15,7 @@ class Option extends Model
         'name',
         'short_name'
     ];
+
     public function document_incomings()
     {
         return $this->hasMany('App\Models\DocumentIncoming', 'option_id');

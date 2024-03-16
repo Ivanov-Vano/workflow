@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Incoming;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class IncomingSeeder extends Seeder
@@ -13,8 +12,8 @@ class IncomingSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        Incoming::factory(20)->create();
+        Incoming::factory(50)->create();
     }
 }

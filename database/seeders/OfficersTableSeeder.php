@@ -12,7 +12,7 @@ class OfficersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Officer::factory(20)->create();
     }

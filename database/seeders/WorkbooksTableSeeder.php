@@ -14,7 +14,7 @@ class WorkbooksTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $officers = Officer::all();
         Workbook::factory(20)->create()->each(function ($workbook) use($officers)

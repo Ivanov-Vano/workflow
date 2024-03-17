@@ -7,7 +7,7 @@ use App\Models\Inventory;
 use App\Models\Classifiers\Officer;
 use Carbon\Carbon;
 
-class InventoriesTableSeeder extends Seeder
+class InventorySeeder extends Seeder
 {
     /**
      * Run the database seeds.

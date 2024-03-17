@@ -7,7 +7,7 @@ use App\Models\Workbook;
 use App\Models\Classifiers\Officer;
 use Carbon\Carbon;
 
-class WorkbooksTableSeeder extends Seeder
+class WorkbookSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Attachment extends Model
 {
@@ -17,4 +18,11 @@ class Attachment extends Model
         'confidential',
         'image',
     ];
+    /**
+     * Получить родительский attachmentable model (incoming or outgoing).
+     */
+    public function attachmentable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 }

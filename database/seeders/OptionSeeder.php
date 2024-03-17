@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Classifiers\Option;
 
 
-class OptionsTableSeeder extends Seeder
+class OptionSeeder extends Seeder
 {
     /**
      * Run the database seeds.

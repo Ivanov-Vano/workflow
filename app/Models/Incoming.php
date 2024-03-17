@@ -71,24 +71,6 @@ class Incoming extends Model
         return $this->morphMany(Attachment::Class, 'attachmentable');
     }
 
-
-    /**
-     * Получить всех ответственных для входящего.
-     */
-    public function nodes(): BelongsToMany
-    {
-        return $this->belongsToMany(Node::class)
-            ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
-            ->withTimestamps();
-    }
-    public function mainNode(): BelongsToMany
-    {
-        return $this->belongsToMany(Node::class)
-            ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
-            ->withTimestamps()
-            ->where('is_main', '=', true);
-    }
-
     /**
      * Получить все приложения (вложения) в виде носителя для входящих.
      */
@@ -104,6 +86,33 @@ class Incoming extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
     }
+
+    /**
+     * Получить всех ответственных для входящего.
+     */
+    public function nodes(): MorphToMany
+    {
+        return $this->morphToMany(Node::class, 'nodeable')
+            ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
+            ->withTimestamps();
+    }
+    /*    public function nodes(): BelongsToMany
+        {
+            return $this->belongsToMany(Node::class)
+                ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
+                ->withTimestamps();
+        }*/
+        public function mainNode(): BelongsToMany
+        {
+            return $this->morphToMany(Node::class, 'nodeable')
+                ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
+                ->withTimestamps()
+                ->where('is_main', '=', true);
+        }
+
+    /**
+     * Получить получателя для входящего.
+     */
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);

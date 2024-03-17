@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Accesses\User;
 use App\Models\Classifiers\Commander;
+use App\Models\Classifiers\Officer;
+use App\Models\Classifiers\Registry;
 use App\Models\Decree;
 use App\Models\Incoming;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -34,11 +36,13 @@ class DecreeFactory extends Factory
             'confidential' => $confidential[$this->faker->numberBetween(0, 1)],// enum
             'exemplar_count' => $this->faker->numberBetween(1, 3),
             'page_count' => $this->faker->numberBetween(1, 10),
+            'registry_id' => Registry::all()->random()->id,
+            'registry_part' => $this->faker->numberBetween(1, 3),
             'page_start' => $this->faker->numberBetween(1, 10),
             'commander_id' => Commander::all()->random()->id,
             'created_who' => User::all()->random()->id,
             'updated_who' => User::all()->random()->id,
-            'sign_who' => User::all()->random()->id,
+            'signed_who' => Officer::all()->random()->id,
         ];
     }
 }

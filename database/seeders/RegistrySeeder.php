@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Classifiers\Node;
+use App\Models\Classifiers\Registry;
 use Illuminate\Database\Seeder;
 
-class NodesTableSeeder extends Seeder
+class RegistrySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class NodesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Node::factory(20)->create();
+        Registry::factory(20)->create();
     }
 }

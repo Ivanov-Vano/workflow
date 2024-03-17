@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Classifiers\Registry;
+use App\Models\Classifiers\Organization;
 use Illuminate\Database\Seeder;
 
-class RegistriesTableSeeder extends Seeder
+class OrganizationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class RegistriesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Registry::factory(20)->create();
+        Organization::factory(10)->create();
     }
 }

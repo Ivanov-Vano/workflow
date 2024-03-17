@@ -3,12 +3,11 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\IncomingResource\Pages;
-//use App\Filament\Resources\IncomingResource\RelationManagers;
+use App\Filament\Resources\IncomingResource\RelationManagers;
 use App\Filament\Resources\Traits\HasTags;
 use App\Models\Accesses\User;
 use App\Models\Incoming;
 use Carbon\Carbon;
-use DateTime;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
@@ -21,6 +20,9 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\Indicator;
@@ -28,6 +30,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class IncomingResource extends Resource
 {
@@ -248,6 +251,9 @@ class IncomingResource extends Resource
             ])->columns(['md' => 2, 'lg' => 3]);
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
@@ -318,8 +324,7 @@ class IncomingResource extends Resource
                     ->toggleable()
                     ->words(2)
                     ->tooltip(function (TextColumn $column): ?string {
-                        $state = $column->getState();
-                        return $state;
+                        return $column->getState();
                     })
                     ->label('Резолюция'),
 /*                TextColumn::make('OverdueDays')
@@ -398,7 +403,7 @@ class IncomingResource extends Resource
                     ->label('Время обновления записи'),
             ])
             ->filters([
-                Filter::make('confidental')
+                Filter::make('confidential')
                     ->label('Гриф')
                     ->form([
                         Checkbox::make('ns')
@@ -514,18 +519,26 @@ class IncomingResource extends Resource
                     }),
 ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
+                self::changeTagsAction(),
             ]);
     }
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\NodesRelationManager::class,
+            RelationManagers\AttachmentsRelationManager::class,
+            RelationManagers\DiscsRelationManager::class,
         ];
     }
 
@@ -538,4 +551,24 @@ class IncomingResource extends Resource
             'edit' => Pages\EditIncoming::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $user = auth()->user();
+        if ($user->hasAnyRole(['Администратор', 'Суперпользователь', 'Делопроизводитель'])) {
+            return parent::getEloquentQuery()
+                ->withoutGlobalScopes([
+                    SoftDeletingScope::class,
+                ]);
+        }
+        return parent::getEloquentQuery()
+            ->whereHas('nodes', function (Builder $query) {
+                $query
+                    ->whereIn('nodes.id', auth()->user()->nodes()->pluck('id')->toArray());
+            })
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
+
 }

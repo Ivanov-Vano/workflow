@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Classifiers\Organization;
+use App\Models\Classifiers\Commander;
 use Illuminate\Database\Seeder;
 
-class OrganizationsTableSeeder extends Seeder
+class CommanderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class OrganizationsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Organization::factory(10)->create();
+        Commander::factory(20)->create();
     }
 }

@@ -4,16 +4,18 @@ namespace App\Models\Classifiers;
 
 use App\Models\Accesses\User;
 use App\Models\Decree;
-use App\Models\DocumentIncoming;
 use App\Models\Incoming;
+use App\Models\Outgoing;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Node extends Model
 {
     use HasFactory;
 
-    public $modelTranslate = 'Ответственные';
+    public string $modelTranslate = 'Ответственные';
 
     protected $fillable =[
         'name',
@@ -23,20 +25,17 @@ class Node extends Model
         'actual',
         'parent_id'
     ];
-    public function documents()
-    {
-        return $this->belongsToMany('App\Models\Document')->withTimestamps();
-    }
-    public function officers()
+    public function officers(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Officer')->withTimestamps();
     }
     /**
      * Выбираем все входящие к ответственным
      */
-    public function incomings()
+    public function incomings(): MorphToMany
     {
-        return $this->belongsToMany(Incoming::class)
+/*        return $this->belongsToMany(Incoming::class)*/
+        return $this->morphedByMany(Incoming::class, 'nodeable')
             ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
             ->withTimestamps();
     }
@@ -45,8 +44,17 @@ class Node extends Model
      */
     public function decrees()
     {
-        return $this->belongsToMany(Decree::class)
+//        return $this->belongsToMany(Decree::class)
+        return $this->morphedByMany(Decree::class, 'nodeable')
             ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
+            ->withTimestamps();
+    }
+    /**
+     * Выбираем все исходящие к ответственным
+     */
+    public function outgoings()
+    {
+        return $this->morphedByMany(Outgoing::class, 'nodeable')
             ->withTimestamps();
     }
     /**

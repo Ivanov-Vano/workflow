@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Classifiers\Officer;
+use App\Models\Classifiers\Node;
 use Illuminate\Database\Seeder;
 
-class OfficersTableSeeder extends Seeder
+class NodeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class OfficersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Officer::factory(20)->create();
+        Node::factory(20)->create();
     }
 }

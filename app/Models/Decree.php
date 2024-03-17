@@ -43,7 +43,7 @@ class Decree extends Model
     ];
 
     /**
-     * Получить все вложения для входящего.
+     * Получить все вложения для приказа.
      */
     public function attachments(): MorphMany
     {
@@ -51,9 +51,15 @@ class Decree extends Model
     }
 
     /**
-     * Получить всех ответственных для входящего.
+     * Получить всех ответственных для приказа.
      */
-    public function nodes()
+    public function nodes(): MorphToMany
+    {
+        return $this->morphToMany(Node::class, 'nodeable')
+            ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
+            ->withTimestamps();
+    }
+/*    public function nodes()
     {
         return $this->belongsToMany(Node::class)
             ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
@@ -65,10 +71,10 @@ class Decree extends Model
             ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
             ->withTimestamps()
             ->where('is_main', '=', true);
-    }
+    }*/
 
     /**
-     * Получить все теги для входящих.
+     * Получить все теги для приказа.
      */
     public function tags(): MorphToMany
     {

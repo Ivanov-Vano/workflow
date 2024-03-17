@@ -2,18 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Classifiers\Resolution;
+use App\Models\Classifiers\Tag;
 use Illuminate\Database\Seeder;
 
-class ResolutionsTableSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
-        Resolution::factory(20)->create();
+        Tag::factory(20)->create();
     }
 }

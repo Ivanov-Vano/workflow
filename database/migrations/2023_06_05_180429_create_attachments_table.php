@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('page_count')->nullable();
             $table->integer('page_start')->nullable();
-            $table->enum('confidential', ['НС', 'ДСП'])->default('НС');
+            $table->enum('confidential', ['ns', 'dsp'])->default('ns');
             $table->string('image')->nullable();
             $table->timestamps();
         });
@@ -31,7 +31,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('attachments');
     }

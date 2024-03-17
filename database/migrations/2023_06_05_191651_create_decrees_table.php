@@ -11,19 +11,19 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('decrees', function (Blueprint $table) {
             $table->id();
             $table->string('number');
             $table->date('date');
-            $table->enum('type', ['Приказ', 'Приказание', 'Приказ МО РФ', 'Прочие приказы'])
+            $table->enum('type', ['Приказ', 'Приказание', 'Прочие приказы'])
                 ->default('Приказ');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->bigInteger('incoming_id')->nullable();
-            $table->enum('confidential', ['НС', 'ДСП'])->default('НС');
+            $table->enum('confidential', ['ns', 'dsp'])->default('ns');
             $table->integer('exemplar_count')->default('1');
             $table->integer('page_count')->nullable();
             $table->bigInteger('registry_id')->nullable();
@@ -61,7 +61,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('decrees');
     }

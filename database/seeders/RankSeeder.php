@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Classifiers\Rank;
 
 
-class RanksTableSeeder extends Seeder
+class RankSeeder extends Seeder
 {
     /**
      * Run the database seeds.

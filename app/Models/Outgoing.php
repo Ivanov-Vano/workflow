@@ -52,11 +52,16 @@ class Outgoing extends Model
     /**
      * Получить всех ответственных для исходящего.
      */
-    public function nodes()
+    public function nodes(): MorphToMany
+    {
+        return $this->morphToMany(Node::class, 'nodeable')
+            ->withTimestamps();
+    }
+/*    public function nodes()
     {
         return $this->belongsToMany(Node::class)
             ->withTimestamps();
-    }
+    }*/
 
     /**
      * Получить все приложения (вложения) в виде носителя для исходящих.

@@ -23,6 +23,8 @@ class DiscsRelationManager extends RelationManager
 
     protected static ?string $pluralModelLabel = 'Вложения диски';
 
+    protected static ?string $title = 'Вложения диски';
+
     public function form(Form $form): Form
     {
         return $form

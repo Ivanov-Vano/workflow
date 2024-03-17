@@ -20,9 +20,9 @@ class   NodesRelationManager extends RelationManager
 {
     protected static string $relationship = 'nodes';
 
-    protected static ?string $modelLabel = 'исполнитель';
+    protected static ?string $title = 'Ответственный';
 
-    protected static ?string $pluralModelLabel = 'исполнители';
+    protected static ?string $pluralLabel = 'исполнители';
 
     public function form(Form $form): Form
     {

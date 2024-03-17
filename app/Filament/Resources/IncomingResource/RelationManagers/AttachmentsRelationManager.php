@@ -25,6 +25,8 @@ class AttachmentsRelationManager extends RelationManager
 
     protected static ?string $pluralModelLabel = 'Вложения документы';
 
+    protected static ?string $title = 'Вложения документы';
+
     public function form(Form $form): Form
     {
         return $form

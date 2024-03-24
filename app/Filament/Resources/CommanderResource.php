@@ -3,14 +3,16 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommanderResource\Pages;
-//use App\Filament\Resources\CommanderResource\RelationManagers;
 use App\Models\Classifiers\Commander;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -54,38 +56,32 @@ class CommanderResource extends Resource
                     ->words(2)
                     ->label('Полное наименование')
                     ->searchable(),
-                BadgeColumn::make('status')
+                TextColumn::make('status')
+                    ->badge()
                     ->label('Статус')
                     ->getStateUsing(fn (Commander $record): string => $record->actual ? 'Актуален' : 'Неактуален')
                     ->colors([
                         'success' => 'Актуален',
                         'warning' => 'Неактуален',
-                    ]),
-            ])
-            ->filters([
-                //
+                    ])
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCommanders::route('/'),
-            'create' => Pages\CreateCommander::route('/create'),
-            'edit' => Pages\EditCommander::route('/{record}/edit'),
+            'index' => Pages\ManageCommanders::route('/'),
         ];
     }
 }

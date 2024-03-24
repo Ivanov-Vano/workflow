@@ -3,19 +3,19 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DepartmentResource\Pages;
-//use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Classifiers\Department;
-use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DepartmentResource extends Resource
 {
@@ -62,24 +62,22 @@ class DepartmentResource extends Resource
                 TextColumn::make('parent.name_short')
                     ->searchable()
                     ->label('Центр'),
-                TextColumn::make('status')
+                IconColumn::make('actual')
                     ->label('Статус')
-                    ->badge()
-                    ->getStateUsing(fn (Department $record): string => $record->actual ? 'Актуален' : 'Неактуален')
-                    ->colors([
-                        'success' => 'Актуален',
-                        'warning' => 'Неактуален',
-                    ]),
-            ])
-            ->filters([
-                //
+                    ->boolean()
+                    ->action(function($record, $column) {
+                        $name = $column->getName();
+                        $record->update([
+                            $name => !$record->$name
+                        ]);
+                    }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

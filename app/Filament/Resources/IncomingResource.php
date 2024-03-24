@@ -28,6 +28,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\Indicator;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -485,14 +486,16 @@ class IncomingResource extends Resource
                     ->multiple()
                     ->preload()
                     ->relationship('whoseResolution', 'full_name'),
+                TernaryFilter::make('is_complete')
+                    ->label('Контроль')
+                    ->boolean()
+                    ->trueLabel('выполнено')
+                    ->falseLabel('невыполнено')
+                    ->native(false),
                 Filter::make('is_internal')
                     ->toggle()
                     ->label('Внутренний')
                     ->query(fn (Builder $query): Builder => $query->where('is_internal', true)),
-                Filter::make('is_complete')
-                    ->toggle()
-                    ->label('Исполненный')
-                    ->query(fn (Builder $query): Builder => $query->where('is_complete', true)),
                 Filter::make('image_sign')
                     ->toggle()
                     ->label('С вложением')

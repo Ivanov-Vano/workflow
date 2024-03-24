@@ -4,9 +4,9 @@ namespace App\Filament\Resources\BookResource\Pages;
 
 use App\Filament\Resources\BookResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 
-class ListBooks extends ListRecords
+class ManageBooks extends ManageRecords
 {
     protected static string $resource = BookResource::class;
 

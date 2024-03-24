@@ -4,9 +4,9 @@ namespace App\Filament\Resources\CommanderResource\Pages;
 
 use App\Filament\Resources\CommanderResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 
-class ListCommanders extends ListRecords
+class ManageCommanders extends ManageRecords
 {
     protected static string $resource = CommanderResource::class;
 

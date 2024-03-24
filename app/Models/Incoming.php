@@ -145,5 +145,9 @@ class Incoming extends Model
     {
         return $this->belongsTo(User::class, 'sign_completed_who', 'id');
     }
+    public function status()
+    {
+        return $this->belongsTo(User::class, 'sign_completed_who', 'id');
+    }
 
 }

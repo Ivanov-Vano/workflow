@@ -38,8 +38,8 @@ class UserResource extends Resource
                 Select::make('officer_id')
                     ->columnSpanFull()
                     ->preload()
-                    ->relationship('officer', 'full_name')
-                    ->getOptionLabelFromRecordUsing(fn (Officer $record): string => "{$record->full_name} / {$record->post}/ {$record->department->name_short}")
+                    ->relationship('officer', 'fullName')
+                    ->getOptionLabelFromRecordUsing(fn (Officer $record): string => "{$record->fullName()} / {$record->post}/ {$record->department->name_short}")
                     /*                    ->reactive()
                                         ->afterStateUpdated(fn ($state, callable $set) => $set('username', $state))*///ToDo: подставить значение ФИО выбранного сотрудника
                     ->label('Сотрудник'),
@@ -91,7 +91,7 @@ class UserResource extends Resource
                     ->label('Роль'),
                 TextColumn::make('nodes.name_short')
                     ->label('Ответственный'),
-                TextColumn::make('officer.full_name')
+                TextColumn::make('officer.fullName')
                     ->label('Сотрудник'),
             ])
             ->filters([

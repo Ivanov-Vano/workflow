@@ -75,7 +75,7 @@ class DecreeResource extends Resource
                             ->preload()
                             ->label('Чей приказ'),
                         Select::make('signed_who')
-                            ->relationship('signedWho', 'full_name')
+                            ->relationship('signedWho', 'surname')
                             ->searchable()
                             ->required()
                             ->preload()
@@ -83,16 +83,16 @@ class DecreeResource extends Resource
                         FileUpload::make('image')
                             ->directory('decrees')
                             ->preserveFilenames()
-                            ->enableDownload()
+                            ->downloadable()
                             ->label('Документ'),
                         Select::make('confidential')
                             ->label('Гриф')
                             ->required()
                             ->options([
-                                'НС' => 'НС',
-                                'ДСП' => 'ДСП',
+                                'ns' => 'ns',
+                                'dsp' => 'dsp',
                             ])
-                            ->default('НС'),
+                            ->default('ns'),
                         TextInput::make('exemplar_count')
                             ->numeric()
                             ->minValue(1)
@@ -209,7 +209,7 @@ class DecreeResource extends Resource
                     ->sortable()
                     ->toggleable()
                     ->label('Чей приказ'),
-                TextColumn::make('signed_who.full_name')
+                TextColumn::make('signed_who.surname')
                     ->searchable()
                     ->sortable()
                     ->toggleable()

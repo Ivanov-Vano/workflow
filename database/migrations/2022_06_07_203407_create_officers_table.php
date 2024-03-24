@@ -18,7 +18,7 @@ class CreateOfficersTable extends Migration
             $table->string('surname');
             $table->string('name');
             $table->string('patronymic')->nullable();
-            $table->string('full_name')->nullable();
+      //      $table->string('full_name')->nullable();
             $table->date('birthdate')->nullable();
             $table->enum('gender', ['мужской', 'женский'])->nullable();
             $table->string('sign_image')->nullable();

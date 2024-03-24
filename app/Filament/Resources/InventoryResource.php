@@ -91,9 +91,13 @@ class InventoryResource extends Resource
                                 Select::make('officer_id')
                                     ->label('Фамилия Имя Отчество')
                                     ->required()
-                                    ->relationship('officer', 'full_name')
-                                    ->preload()
-                                    ->searchable(),
+                                    ->relationship(
+                                        'officer',
+                                        modifyQueryUsing: fn(Builder $query) => $query->orderBy('surname')->orderBy('name'),
+                                    )
+                                    ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->surname} {$record->name} {$record->patronymic}")
+                                    ->searchable(['surname', 'name', 'patronymic'])
+                                    ->preload(),
                                 TextInput::make('received_at')
                                     ->type('date')
                                     ->label('Получен')

@@ -17,7 +17,7 @@ class OfficersRelationManager extends RelationManager
 {
     protected static string $relationship = 'officers';
 
-    protected static ?string $recordTitleAttribute = 'full_name';
+    protected static ?string $recordTitleAttribute = 'fullName';
 
     protected static ?string $modelLabel = 'исполнитель';
 
@@ -45,7 +45,7 @@ class OfficersRelationManager extends RelationManager
             ->columns([
                 TextColumn::make('rank.short_name')
                     ->label('Звание'),
-                TextColumn::make('full_name')
+                TextColumn::make('fullName')
                     ->label('Фамилия Имя Отчество'),
                 TextColumn::make('department.name_short')
                     ->label('Подразделение'),

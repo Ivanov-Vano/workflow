@@ -133,15 +133,20 @@ class IncomingResource extends Resource
                     Section::make('Резолюция')
                         ->schema([
                             Select::make('whose_resolution')
-                                ->relationship('whoseResolution', 'full_name',
-                                    fn (Builder $query) => $query
-                                        /*->whereHas('user.roles', function (Builder $query) {
-                                            $query
-                                                ->where('roles.name', '=', 'Начальник');
-                                        })*/
-                                        ->where('actual', true))
+                                ->relationship(
+                                    'whoseResolution', 'surname'
+                                /*modifyQueryUsing: fn(Builder $query) => $query
+                                    ->where('actual', true)
+                                    ->orderBy('surname')
+                                    ->orderBy('name'),
+                                    ->whereHas('user.roles', function (Builder $query) {
+                                        $query
+                                            ->where('roles.name', '=', 'Начальник');
+                                    })*/
+                                )
+                                ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->surname} {$record->name} {$record->patronymic} ")
                                 ->preload()
-                                ->searchable()
+                                ->searchable(['surname', 'name', 'patronymic'])
                                 ->label('Автор резолюции'),
                             TextInput::make('resolution')
                                 ->label('Текст'),
@@ -219,11 +224,15 @@ class IncomingResource extends Resource
                                 ->label('Основание для снятия'),
                             Select::make('officer_id')
                                 ->label('ФИО исполнителя')
-                                ->relationship('officer', 'full_name')
-                                ->searchable()
+                                ->relationship(
+                                    'officer',
+                                    modifyQueryUsing: fn(Builder $query) => $query->orderBy('surname')->orderBy('name'),
+                                )
+                                ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->surname} {$record->name} {$record->patronymic}")
+                                ->searchable(['surname', 'name', 'patronymic'])
                                 ->preload(),
                         ])
-                        ->columns(3),
+                        ->columns(2),
                 ])->columnSpan(['lg' => 2]),
                 Group::make([
                     Section::make('Документ')
@@ -330,7 +339,7 @@ class IncomingResource extends Resource
                     ->sortable()
                     ->toggleable()
                     ->label('Номер дела'),
-                TextColumn::make('whoseResolution.full_name')
+                TextColumn::make('whoseResolution.surname')
                     ->searchable()
                     ->sortable()
                     ->toggleable()
@@ -365,7 +374,7 @@ class IncomingResource extends Resource
                     ->toggleable()
                     ->sortable()
                     ->label('Дата выполнения'),
-                TextColumn::make('officer.full_name')
+                TextColumn::make('officer.fullName')
                     ->searchable()
                     ->sortable()
                     ->toggleable()
@@ -391,24 +400,24 @@ class IncomingResource extends Resource
                     ->colors([
                         'success' => 'Вложение',
                     ]),
-                TextColumn::make('signCompletedWho.officer.full_name')
+/*                TextColumn::make('signCompletedWho.officer.fullName')
                     ->toggleable()
                     ->searchable()
-                    ->label('Кто поставил отметку о выполнении'),
+                    ->label('Кто поставил отметку о выполнении'),*/
                 TextColumn::make('sign_completed_at')
                     ->toggleable()
                     ->sortable()
                     ->label('Время отметки о выполнении'),
                 self::tagsColumn(),
-                TextColumn::make('createdWho.officer.full_name')
+/*                TextColumn::make('createdWho.officer.fullName')
                     ->toggleable()
                     ->searchable()
-                    ->label('Кто создал запись'),
+                    ->label('Кто создал запись'),*/
                 TextColumn::make('created_at')
                     ->toggleable()
                     ->sortable()
                     ->label('Время создания записи'),
-                TextColumn::make('updatedWho.officer.full_name')
+                TextColumn::make('updatedWho.officer.surname')
                     ->toggleable()
                     ->searchable()
                     ->label('Кто обновил запись'),
@@ -471,21 +480,21 @@ class IncomingResource extends Resource
                     ->multiple()
                     ->preload()
                     ->relationship('registry', 'number'),
-                SelectFilter::make('officer_id')
+/*                SelectFilter::make('officer_id')
                     ->label('Исполнитель')
                     ->multiple()
                     ->preload()
-                    ->relationship('officer', 'full_name'),
+                    ->relationship('officer', 'surname'),*/
                 SelectFilter::make('option_id')
                     ->label('Тип получения')
                     ->multiple()
                     ->preload()
                     ->relationship('option', 'short_name'),
-                SelectFilter::make('whose_resolution')
+/*                SelectFilter::make('whose_resolution')
                     ->label('Чья резолюция')
                     ->multiple()
                     ->preload()
-                    ->relationship('whoseResolution', 'full_name'),
+                    ->relationship('whoseResolution', 'surname'),*/
                 TernaryFilter::make('is_complete')
                     ->label('Контроль')
                     ->boolean()

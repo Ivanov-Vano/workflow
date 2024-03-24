@@ -5,6 +5,7 @@ namespace App\Models\Classifiers;
 use App\Models\Accesses\User;
 use App\Models\Disc;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,7 +23,6 @@ class Officer extends Model
         'surname',
         'name',
         'patronymic',
-        'full_name',
         'birthdate',
         'gender',
         'sign_image',
@@ -71,10 +71,6 @@ class Officer extends Model
     {
         return $this->belongsToMany('App\Models\Inventory')->withTimestamps();
     }
-    public function getFio()
-    {
-        return $this->person()->surname.' '.mb_substr($this->person()->name, 0, 1).'. '.mb_substr($this->person()->patronymic, 0, 1).'.';
-    }
     public function user()
     {
         return $this->HasOne(User::class);
@@ -85,4 +81,61 @@ class Officer extends Model
     public function discs()
     {
         return $this->belongsToMany(Disc::class);
-    }}
+    }
+
+    /**
+     * Преобразование Фамилии к нормальному виду
+     */
+    public function surname(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => ucfirst($value),
+            set: fn($value) => strtolower($value),
+        );
+    }
+    /**
+     * Преобразование Имени к нормальному виду
+     */
+    public function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => ucfirst($value),
+            set: fn($value) => strtolower($value),
+        );
+    }
+    /**
+     * Преобразование Фамилии к нормальному виду
+     */
+    public function patronymic(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => ucfirst($value),
+            set: fn($value) => strtolower($value),
+        );
+    }
+    /**
+     * Получение преобразованной ФИО
+     */
+    public function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->concatFullName(),
+        );
+    }
+    /**
+     * Создание ФИО из фам, имя и отчества
+     */
+    public function concatFullName(): string
+    {
+        return
+            ucwords(
+                str($this->attributes['surname'])
+                    ->append(' ')
+                    ->append(ucfirst($this->attributes['name']))
+                    ->append(' ') //todo если отчество пустое
+                    ->append(ucfirst($this->attributes['patronymic']))
+            );
+    }
+
+
+}

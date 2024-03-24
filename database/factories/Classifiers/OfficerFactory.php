@@ -26,7 +26,7 @@ class OfficerFactory extends Factory
             'surname' => fake()->lastName,
             'name' => fake()->firstName,
             'patronymic' => fake()->firstNameMale.$postfix[fake()->numberBetween(0, 1)],
-            'full_name' => fake()->lastName.' '.fake()->firstName.' '.fake()->firstNameMale.$postfix[fake()->numberBetween(0, 1)],
+//            'full_name' => fake()->lastName.' '.fake()->firstName.' '.fake()->firstNameMale.$postfix[fake()->numberBetween(0, 1)],
             'birthdate' => $this->faker->dateTimeBetween('-14000  days', '-10000 days'),
             'gender' => $gender[$this->faker->numberBetween(0, 1)],// enum
             'sign_image' =>  $this->faker->text,

@@ -19,6 +19,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OutgoingResource extends Resource
@@ -105,9 +106,13 @@ class OutgoingResource extends Resource
                             ->columnSpanFull(),
                         Select::make('officer_id')
                             ->label('ФИО исполнителя')
-                            ->relationship('officer', 'full_name')
-                            ->preload()
-                            ->searchable(),
+                            ->relationship(
+                                'officer',
+                                modifyQueryUsing: fn(Builder $query) => $query->orderBy('surname')->orderBy('name'),
+                            )
+                            ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->surname} {$record->name} {$record->patronymic}")
+                            ->searchable(['surname', 'name', 'patronymic'])
+                            ->preload(),
                         TextInput::make('note')
                             ->label('Примечание'),
                     ])

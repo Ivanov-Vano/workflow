@@ -40,8 +40,10 @@ class OfficerResource extends Resource
                     ->schema([
                         TextInput::make('surname')
                             ->autofocus()
+                            ->required()
                             ->label('Фамилия'),
                         TextInput::make('name')
+                            ->required()
                             ->label('Имя'),
                         TextInput::make('patronymic')
                             ->label('Отчество'),
@@ -88,8 +90,9 @@ class OfficerResource extends Resource
                 TextColumn::make('rank.short_name')
                     ->searchable()
                     ->label('Звание'),
-                TextColumn::make('full_name')
-                    ->searchable()
+                TextColumn::make('fullName')
+                    ->sortable(['surname','name', 'patronymic'])
+                    ->searchable(['surname','name', 'patronymic'])
                     ->label('Фамилия Имя Отчество'),
                 TextColumn::make('department.name_short')
                     ->searchable()
@@ -98,9 +101,7 @@ class OfficerResource extends Resource
                     ->searchable()
                     ->label('Должность'),
             ])
-            ->filters([
-                //
-            ])
+            ->searchPlaceholder('Поиск (Звание, ФИО, Подразделение, Должность)')
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])

@@ -37,7 +37,7 @@ class WorkbookExport implements FromQuery, WithColumnFormatting, WithMapping
             $workbooks->name,
             $workbooks->confidential,
             $workbooks->book->number,
-            $workbooks->workbookPermormer->officer->person->full_name ?? '',
+            $workbooks->workbookPermormer->officer->fullName() ?? '',
             $workbooks->workbookPermormer->officer->department->name_short ?? '',
         ];
     }

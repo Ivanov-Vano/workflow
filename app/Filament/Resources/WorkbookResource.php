@@ -88,7 +88,7 @@ class WorkbookResource extends Resource
                                 Select::make('officer_id')
                                     ->label('Фамилия Имя Отчество')
                                     ->required()
-                                    ->relationship('officer', 'full_name')
+                                    ->relationship('officer', 'fullName')
                                     ->preload()
                                     ->searchable(),
                                 TextInput::make('received_at')
@@ -136,7 +136,7 @@ class WorkbookResource extends Resource
                     ->searchable()
                     ->toggleable()
                     ->label('Книга'),
-                TextColumn::make('workbookPermormer.officer.full_name')
+                TextColumn::make('workbookPermormer.officer.fullName')
                     ->searchable()
                     ->toggleable()
                     ->label('За кем числится'),

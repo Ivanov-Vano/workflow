@@ -470,11 +470,7 @@ class IncomingResource extends Resource
                     ->multiple()
                     ->preload()
                     ->relationship('nodes', 'name_short'),
-                SelectFilter::make('tags')
-                    ->label('Ключевое слово')
-                    ->multiple()
-                    ->preload()
-                    ->relationship('tags', 'name'),
+                self::tagsFilter(),
                 SelectFilter::make('registry_id')
                     ->label('Номер дела')
                     ->multiple()

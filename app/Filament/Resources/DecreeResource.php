@@ -256,6 +256,7 @@ class DecreeResource extends Resource
                 self::tagsColumn(),
             ])
             ->filters([
+                self::tagsFilter(),
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([

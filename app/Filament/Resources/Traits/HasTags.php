@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Traits;
 
 use App\Models\Classifiers\Tag;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\Collection;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
@@ -31,6 +32,7 @@ trait HasTags
             ->createOptionForm([
                 TextInput::make('name')
                     ->lazy()
+                    ->label('Наименование')
                     ->afterStateUpdated(fn ($set, $state) => $set('name', ucfirst($state)))
                     ->required(),
             ]);
@@ -73,4 +75,13 @@ trait HasTags
             ->separator(',')
             ->limit(3);
     }
+    public static function tagsFilter(): SelectFilter
+    {
+        return SelectFilter::make('tags')
+            ->label('Ключевые слова')
+            ->multiple()
+            ->preload()
+            ->relationship('tags', 'name');
+    }
+
 }

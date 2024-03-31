@@ -256,7 +256,7 @@ class OutgoingResource extends Resource
                 self::tagsColumn(),
             ])
             ->filters([
-                //
+                self::tagsFilter()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

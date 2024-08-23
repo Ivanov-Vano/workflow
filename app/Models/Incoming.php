@@ -96,20 +96,24 @@ class Incoming extends Model
             ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
             ->withTimestamps();
     }
-    /*    public function nodes(): BelongsToMany
-        {
-            return $this->belongsToMany(Node::class)
-                ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
-                ->withTimestamps();
-        }*/
-        public function mainNode(): BelongsToMany
-        {
-            return $this->morphToMany(Node::class, 'nodeable')
-                ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
-                ->withTimestamps()
-                ->where('is_main', '=', true);
-        }
 
+    public function mainNode(): BelongsToMany
+    {
+        return $this->morphToMany(Node::class, 'nodeable')
+            ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
+            ->withTimestamps()
+            ->where('is_main', '=', true);
+    }
+
+    /**
+     * получить все связанные исходящие
+     *
+     * @return BelongsToMany
+     */
+    public function outgoings(): BelongsToMany
+    {
+        return $this->belongsToMany(Outgoing::class, 'incoming_outgoing');
+    }
     /**
      * Получить получателя для входящего.
      */

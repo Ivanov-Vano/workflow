@@ -12,6 +12,7 @@ use App\Models\Classifiers\Tag;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -77,6 +78,16 @@ class Outgoing extends Model
     public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
+    }
+
+    /**
+     * Получить все связанные входящие
+     *
+     * @return BelongsToMany
+     */
+    public function incomings(): BelongsToMany
+    {
+        return $this->belongsToMany(Incoming::class, 'incoming_outgoing');
     }
     public function organization(): BelongsTo
     {

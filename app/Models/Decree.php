@@ -59,19 +59,7 @@ class Decree extends Model
             ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
             ->withTimestamps();
     }
-/*    public function nodes()
-    {
-        return $this->belongsToMany(Node::class)
-            ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
-            ->withTimestamps();
-    }
-    public function mainNode()
-    {
-        return $this->belongsToMany(Node::class)
-            ->withPivot('is_main', 'is_personal', 'comment', 'viewed_at', 'report_text', 'report')
-            ->withTimestamps()
-            ->where('is_main', '=', true);
-    }*/
+
 
     /**
      * Получить все теги для приказа.

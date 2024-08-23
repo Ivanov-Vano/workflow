@@ -72,8 +72,8 @@ class OutgoingResource extends Resource
                             ->label('Гриф')
                             ->required()
                             ->options([
-                                'НС' => 'НС',
-                                'ДПС' => 'ДПС',
+                                'ns' => 'НС',
+                                'dsp' => 'ДПС',
                             ])
                             ->default('НС'),
                         TextInput::make('exemplar_count')
@@ -166,7 +166,7 @@ class OutgoingResource extends Resource
                     ])->columns(3),
                 self::formTagsField()
                     ->columnSpan(['md' => 2, 'lg' => 3]),
-                Section::make('Параметры записи')
+                /*Section::make('Параметры записи')
                     ->schema([
                         Select::make('created_who')
                             ->options(User::query()
@@ -181,7 +181,7 @@ class OutgoingResource extends Resource
                         DateTimePicker::make('updated_at')
                             ->label('Обновлена'),
 
-                        ])->columns(2)
+                        ])->columns(2)*/
 
             ])->columns(['md' => 2, 'lg' => 3]);
     }

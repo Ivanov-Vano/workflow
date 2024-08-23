@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Classifiers\Node;
 use App\Models\Classifiers\Tag;
 use App\Models\Disc;
+use App\Models\Incoming;
 use App\Models\Outgoing;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -18,6 +19,8 @@ class OutgoingSeeder extends Seeder
      */
     public function run(): void
     {
+        // Получаем входящие
+        $incomings = Incoming::all();
         $nodes = Node::all()->random(3);
         $discs = Disc::all()->random(2);
         $tags = Tag::all()->random(1);
@@ -26,6 +29,13 @@ class OutgoingSeeder extends Seeder
             ->hasAttached($discs)
             ->hasAttached($tags)
             ->hasAttachments(3)
-            ->create();
+        // фэйковые данные для модели Outgoing и связываем их с Incoming
+            ->create()->each(function ($outgoing) use ($incomings) {
+                // Связываем каждую запись Outgoing с двумя случайными записями Incoming
+                $randomIncomings = $incomings->random(2);
+                foreach ($randomIncomings as $incoming) {
+                    $outgoing->incomings()->attach($incoming->id);
+                }
+            });;
     }
 }

@@ -20,7 +20,7 @@ class   NodesRelationManager extends RelationManager
 {
     protected static string $relationship = 'nodes';
 
-    protected static ?string $title = 'Ответственный';
+    protected static ?string $title = 'исполнители';
 
     protected static ?string $pluralLabel = 'исполнители';
 

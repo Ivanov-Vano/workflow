@@ -64,6 +64,16 @@ class Incoming extends Model
     ];
 
     /**
+     * Метод получения всех связанных мероприятий
+     *
+     * @return BelongsToMany
+     */
+    public function events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class, 'event_incoming');
+    }
+
+    /**
      * Получить все вложения для входящего.
      */
     public function attachments(): MorphMany

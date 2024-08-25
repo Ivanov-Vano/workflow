@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             IncomingSeeder::class,
             OutgoingSeeder::class,
             DecreeSeeder::class,
+            EventSeeder::class
         ]);
     }
 }

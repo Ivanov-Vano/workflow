@@ -560,6 +560,7 @@ class IncomingResource extends Resource
         return [
             RelationManagers\NodesRelationManager::class,
             RelationManagers\AttachmentsRelationManager::class,
+            RelationManagers\EventsRelationManager::class,
             RelationManagers\OutgoingsRelationManager::class,
             RelationManagers\DiscsRelationManager::class,
         ];
